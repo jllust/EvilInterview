@@ -7,6 +7,7 @@
 //
 
 #include "LetterTile.hpp"
+#include "HelloWorldScene.h"
 
 using namespace std;
 
@@ -28,31 +29,38 @@ bool LetterTile::init() {
 }
 
 void LetterTile::uiPosition(Vec2 &pos) {
-    pos -= (_contentSize.width * 0.5);
+    pos -= _parent->getPosition();
     setPosition(pos);
 }
 
+const Vec2 LetterTile::uiPosition() {
+    Vec2 v = _position;
+    v += _parent->getPosition();
+    return v;
+}
+
 void LetterTile::onEnter() {
-    Layer::onEnter();
+    Node::onEnter();
     
     // start to add assets once this layer is added to the draw heirachy
     auto tile = Sprite::createWithSpriteFrameName("tile.png");
-    tile->setAnchorPoint(Vec2());
+    //tile->setAnchorPoint(Vec2());
     addChild(tile);
     
     Rect r = tile->getBoundingBox();
     setContentSize(r.size);
     auto label = Label::createWithTTF(string(&letter), "fonts/Marker Felt.ttf", 42);
-    label->setPosition(r.size.width*0.5, r.size.height*0.5);
+    //label->setPosition(r.size.width*0.5, r.size.height*0.5);
     addChild(label);
 }
 
 bool LetterTile::onTouchBegan(Touch *touch, Event *event) {
     Vec2 t = touch->getLocation() - _parent->getPosition();
     Rect r = getBoundingBox();
+    r.origin -= _contentSize.width*0.5;
     if (r.containsPoint(t)) {
         home = getPosition();
-        uiPosition(t);
+        setPosition(t);
         return true;
     }
     return false;
@@ -60,13 +68,18 @@ bool LetterTile::onTouchBegan(Touch *touch, Event *event) {
 
 void LetterTile::onTouchMoved(Touch *touch, Event *event) {
     Vec2 t = touch->getLocation() - _parent->getPosition();
-    uiPosition(t);
+    setPosition(t);
 }
 
 void LetterTile::onTouchEnded(Touch *touch, Event *event) {
-    stopAllActions();
-    MoveTo* goHome = MoveTo::create(0.25, home);
-    runAction(goHome);
+    if (!delegate) return;
+    if ( delegate->testDrop(this) ) {
+        
+    } else {
+        stopAllActions();
+        MoveTo* goHome = MoveTo::create(0.25, home);
+        runAction(goHome);
+    }
 }
 
 void LetterTile::update(float delta) {

@@ -13,9 +13,12 @@
 
 USING_NS_CC;
 
+class HelloWorld;
+
 class LetterTile : public Layer
 {
 public:
+    HelloWorld* delegate;
     char letter;
     Vec2 home;
     
@@ -24,6 +27,7 @@ public:
     CREATE_FUNC(LetterTile);
     
     void uiPosition(Vec2 &pos);
+    const Vec2 uiPosition();
     
     virtual void onEnter();
     virtual bool onTouchBegan(Touch *touch, Event *event);

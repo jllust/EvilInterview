@@ -3,7 +3,7 @@
 
 USING_NS_CC;
 
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(896, 640);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(960, 640);
 
 AppDelegate::AppDelegate() {
 
@@ -22,13 +22,6 @@ void AppDelegate::initGLContextAttrs()
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 
     GLView::setGLContextAttrs(glContextAttrs);
-}
-
-// If you want to use packages manager to install more packages, 
-// don't modify or remove this function
-static int register_all_packages()
-{
-    return 0; //flag for packages manager
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {

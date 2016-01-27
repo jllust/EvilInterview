@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "LetterTile.hpp"
+#include "TileLanding.hpp"
 
 USING_NS_CC;
 using namespace std;
@@ -15,14 +16,18 @@ public:
     ValueVector gameWords;
     int wordsPlayed;
     int currentWordIdx;
+    vector<TileLanding*> landings;
     vector<LetterTile*> letterTiles;
     
-    Layer* homeTray;
+    Node* homeTray;
+    Node* landingTray;
 
     virtual bool init();
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+    bool testDrop(LetterTile* letter);
     
     virtual void onEnter();
     virtual bool onTouchBegan(Touch *touch, Event *event);
