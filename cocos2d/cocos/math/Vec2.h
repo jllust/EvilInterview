@@ -379,6 +379,14 @@ public:
     inline Vec2& operator-=(const Vec2& v);
 
     /**
+     * Subtracts the given float from this vector.
+     *
+     * @param s The float to subtract from both vector's values.
+     * @return This vector, after the subtraction occurs.
+     */
+    inline Vec2& operator-=(float s);
+    
+    /**
      * Calculates the negation of this vector.
      * 
      * Note: this does not modify this vector.

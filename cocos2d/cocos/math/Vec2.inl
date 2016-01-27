@@ -165,6 +165,13 @@ inline Vec2& Vec2::operator-=(const Vec2& v)
     return *this;
 }
 
+inline Vec2& Vec2::operator-=(float s)
+{
+    x -= s;
+    y -= s;
+    return *this;
+}
+
 inline const Vec2 Vec2::operator-() const
 {
     Vec2 result(*this);
