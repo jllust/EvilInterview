@@ -7,10 +7,12 @@
 //
 
 #include "TileLanding.hpp"
+#include "LetterTile.hpp"
 
 TileLanding* TileLanding::create() {
     TileLanding *pRet = new(std::nothrow) TileLanding(); \
     if (pRet && pRet->initWithSpriteFrameName("tray.png")) {
+        pRet->tile = nullptr;
         pRet->autorelease();
         return pRet;
     } else {
@@ -26,6 +28,19 @@ void TileLanding::onEnter() {
         setVisible(false);
         _contentSize.width *= 0.5;
     }
+}
+
+void TileLanding::placeTile(LetterTile* newtile) {
+    if (tile != nullptr) {
+        tile->landing = nullptr;
+        tile->goHome();
+        tile = nullptr;
+    }
+    if (newtile != nullptr) {
+        tile = newtile;
+        tile->landing = this;
+    }
+    
 }
 
 const Vec2 TileLanding::glPosition() {

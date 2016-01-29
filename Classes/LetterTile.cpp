@@ -59,7 +59,11 @@ bool LetterTile::onTouchBegan(Touch *touch, Event *event) {
     Rect r = getBoundingBox();
     r.origin -= _contentSize.width*0.5;
     if (r.containsPoint(t)) {
-        home = getPosition();
+        if (landing) {
+            landing->tile = nullptr;
+            landing = nullptr;
+        }
+        setZOrder(10);
         setPosition(t);
         return true;
     }
@@ -72,14 +76,12 @@ void LetterTile::onTouchMoved(Touch *touch, Event *event) {
 }
 
 void LetterTile::onTouchEnded(Touch *touch, Event *event) {
+    setZOrder(0);
     if (!delegate) return;
     if ( delegate->testDrop(this) ) {
-        
-    } else {
-        stopAllActions();
-        MoveTo* goHome = MoveTo::create(0.25, home);
-        runAction(goHome);
+      
     }
+    delegate->dropTile(this);
 }
 
 void LetterTile::update(float delta) {

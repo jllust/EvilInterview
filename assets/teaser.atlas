@@ -1,0 +1,55 @@
+
+teaser.png
+size: 256,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: false
+  xy: 210, 598
+  size: 38, 79
+  orig: 38, 86
+  offset: 0, 4
+  index: -1
+eyes
+  rotate: false
+  xy: 0, 0
+  size: 102, 18
+  orig: 110, 30
+  offset: 5, 8
+  index: -1
+fox
+  rotate: false
+  xy: 0, 327
+  size: 208, 350
+  orig: 260, 360
+  offset: 1, 9
+  index: -1
+l_ear
+  rotate: false
+  xy: 0, 94
+  size: 82, 116
+  orig: 82, 116
+  offset: 0, 0
+  index: -1
+r_ear
+  rotate: false
+  xy: 149, 235
+  size: 58, 90
+  orig: 58, 90
+  offset: 0, 0
+  index: -1
+scarf
+  rotate: false
+  xy: 0, 20
+  size: 100, 72
+  orig: 100, 75
+  offset: 0, 3
+  index: -1
+tail
+  rotate: false
+  xy: 0, 212
+  size: 147, 113
+  orig: 147, 113
+  offset: 0, 0
+  index: -1

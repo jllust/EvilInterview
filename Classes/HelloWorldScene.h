@@ -4,8 +4,10 @@
 #include "cocos2d.h"
 #include "LetterTile.hpp"
 #include "TileLanding.hpp"
+#include <spine/spine-cocos2dx.h>
 
 USING_NS_CC;
+using namespace spine;
 using namespace std;
 
 class HelloWorld : public Layer
@@ -28,11 +30,10 @@ public:
     CREATE_FUNC(HelloWorld);
     
     bool testDrop(LetterTile* letter);
+    void testWord();
+    void dropTile(LetterTile* tile, bool animated = true);
     
     virtual void onEnter();
-    virtual bool onTouchBegan(Touch *touch, Event *event);
-    virtual void onTouchMoved(Touch *touch, Event *event);
-    virtual void onTouchEnded(Touch *touch, Event *event);
     virtual void update(float delta);
 };
 

@@ -13,15 +13,19 @@
 
 USING_NS_CC;
 
+class LetterTile;
+
 class TileLanding : public Sprite
 {
 public:
     char correctLetter;
+    LetterTile* tile;
     
     static TileLanding* create();
     
     virtual void onEnter();
     
+    void placeTile(LetterTile* newtile);
     const Vec2 glPosition();
 };
 

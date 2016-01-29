@@ -14,11 +14,13 @@
 USING_NS_CC;
 
 class HelloWorld;
+class TileLanding;
 
 class LetterTile : public Layer
 {
 public:
     HelloWorld* delegate;
+    TileLanding* landing;
     char letter;
     Vec2 home;
     
