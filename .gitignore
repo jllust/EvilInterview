@@ -50,3 +50,8 @@ Backup[ ]of[ ]*.key/
 Backup[ ]of[ ]*.numbers/
 _assets
 *_Build
+
+# Local Android build files
+local.properties
+proj.android/libs/armeabi
+proj.android/obj/local/armeabi

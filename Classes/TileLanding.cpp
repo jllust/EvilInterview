@@ -33,7 +33,6 @@ void TileLanding::onEnter() {
 void TileLanding::placeTile(LetterTile* newtile) {
     if (tile != nullptr) {
         tile->landing = nullptr;
-        tile->goHome();
         tile = nullptr;
     }
     if (newtile != nullptr) {
