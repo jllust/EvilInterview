@@ -115,6 +115,7 @@ void HelloWorld::testWord() {
 }
 
 void HelloWorld::startIntro() {
+    Size visibleSize = Director::getInstance()->getVisibleSize();
     //Intro to get the user started
     ////
     auto intro = SkeletonAnimation::createWithFile("solveintro.json", "spine.atlas");
@@ -122,8 +123,13 @@ void HelloWorld::startIntro() {
     intro->setScale(0.5);
     intro->setAnimation(0, "intro", false);
     addChild(intro);
-
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    
+    auto twirl = SkeletonAnimation::createWithFile("twirl.json", "spine.atlas");
+    twirl->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
+    twirl->setScale(0.5);
+    twirl->setAnimation(0, "intro", false);
+    addChild(twirl);
+    
     Vec2 pos = landingTray->getPosition();
     landingTray->setPosition(pos.x-visibleSize.width, pos.y);
     auto slide = EaseElasticOut::create(MoveTo::create(2, pos));

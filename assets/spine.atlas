@@ -18,8 +18,8 @@ eyes
   offset: 4, 7
   index: -1
 fox
-  rotate: false
-  xy: 219, 558
+  rotate: true
+  xy: 571, 558
   size: 210, 352
   orig: 260, 360
   offset: 0, 8
@@ -60,16 +60,23 @@ solve
   offset: 0, 0
   index: -1
 tail
-  rotate: false
-  xy: 431, 219
+  rotate: true
+  xy: 571, 219
   size: 147, 113
   orig: 147, 113
   offset: 0, 0
   index: -1
 the
   rotate: true
-  xy: 1, 558
+  xy: 353, 558
   size: 380, 216
   orig: 380, 216
+  offset: 0, 0
+  index: -1
+twirl
+  rotate: true
+  xy: 1, 558
+  size: 390, 350
+  orig: 390, 350
   offset: 0, 0
   index: -1

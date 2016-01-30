@@ -794,8 +794,12 @@ Vec2 Director::getVisibleOrigin() const
 void Director::runWithScene(Scene *scene)
 {
     CCASSERT(scene != nullptr, "This command can only be used to start the Director. There is already a scene present.");
-    CCASSERT(_runningScene == nullptr, "_runningScene should be null");
+    //CCASSERT(_runningScene == nullptr, "_runningScene should be null");
 
+    if (_runningScene != nullptr) {
+        replaceScene(scene);
+        return;
+    }
     pushScene(scene);
     startAnimation();
 }

@@ -19,6 +19,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>restart.jpg</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{124,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{124,100}</string>
+                <key>textureRect</key>
+                <string>{{1139,1},{124,100}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>tile.png</key>
             <dict>
                 <key>aliases</key>
@@ -30,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{82,77}</string>
                 <key>textureRect</key>
-                <string>{{1139,106},{82,77}}</string>
+                <string>{{1139,232},{82,77}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{86,103}</string>
                 <key>textureRect</key>
-                <string>{{1139,1},{86,103}}</string>
+                <string>{{1139,127},{86,103}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -57,9 +72,9 @@
             <key>realTextureFileName</key>
             <string>assets.png</string>
             <key>size</key>
-            <string>{1226,642}</string>
+            <string>{1240,642}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1b6575b7251afeb46938b2330883f8cf:8320d7fd4c20b53621e2b8ab598b1c29:83e187547237f094a69bacbb86d8af03$</string>
+            <string>$TexturePacker:SmartUpdate:9ff32574d90c2e2baec872cdff935d0f:44394245c0adcf630f29970ed801ea15:83e187547237f094a69bacbb86d8af03$</string>
             <key>textureFileName</key>
             <string>assets.png</string>
         </dict>

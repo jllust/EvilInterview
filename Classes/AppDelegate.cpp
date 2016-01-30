@@ -3,6 +3,8 @@
 
 USING_NS_CC;
 
+#define DEBUG_RESTART 1
+
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(960, 640);
 
 AppDelegate::AppDelegate() {
@@ -15,8 +17,7 @@ AppDelegate::~AppDelegate()
 
 //if you want a different context,just modify the value of glContextAttrs
 //it will takes effect on all platforms
-void AppDelegate::initGLContextAttrs()
-{
+void AppDelegate::initGLContextAttrs() {
     //set OpenGL context attributions,now can only set six attributions:
     //red,green,blue,alpha,depth,stencil
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
@@ -41,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    //director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -49,13 +50,33 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->setSearchPaths(searchPaths);
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("assets.plist");
 
+    reloadScene(NULL);
+    
+    return true;
+}
+
+void AppDelegate::reloadScene(Ref* pSender) {
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto director = Director::getInstance();
+    
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
-
-    // run
+    
     director->runWithScene(scene);
-
-    return true;
+    
+#if DEBUG_RESTART
+    //add a "reload" button to see the game start animation over again
+    ////
+    auto restartItem = MenuItemImage::create();//"restart.jpg", "restart.jpg", CC_CALLBACK_1(AppDelegate::reloadScene, this));
+    restartItem->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("restart.jpg"));
+    restartItem->setCallback( CC_CALLBACK_1(AppDelegate::reloadScene, this) );
+    restartItem->setScale(0.25);
+    
+    // create menu to hold the restart button
+    auto menu = Menu::create(restartItem, NULL);
+    menu->setPosition(Vec2(25, visibleSize.height-25));
+    scene->addChild(menu, 10);
+#endif
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too

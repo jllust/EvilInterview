@@ -14,6 +14,8 @@ public:
     AppDelegate();
     virtual ~AppDelegate();
 
+    void reloadScene(cocos2d::Ref* pSender);
+    
     virtual void initGLContextAttrs();
 
     /**
