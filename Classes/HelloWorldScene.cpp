@@ -3,18 +3,14 @@
 #include <random>
 #include <chrono>       // std::chrono::system_clock
 #include <iostream>
+#include "audio/include/SimpleAudioEngine.h"
+
+#define DEBUG_WIN 0
 
 Scene* HelloWorld::createScene() {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
-
-    // add layer as a child to scene
     scene->addChild(layer);
-
-    // return the scene
     return scene;
 }
 
@@ -23,6 +19,12 @@ bool HelloWorld::init() {
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() ) return false;
+    
+#if DEBUG_WIN
+    auto keyListener = EventListenerKeyboard::create();
+    keyListener->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
+#endif
     
     //std::srand(std::time(0));
     wordsPlayed = 0;
@@ -33,16 +35,9 @@ bool HelloWorld::init() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    // add a label shows the game title
-    ////
-    auto label = Label::createWithTTF("Evil Words", "fonts/Marker Felt.ttf", 24);
-    label->setPosition(Vec2(visibleSize.width/2,
-                            visibleSize.height - label->getContentSize().height));
-    addChild(label, 1);
-
     // add a large back ground image as the games stage
     ////
-    auto bg = Sprite::createWithSpriteFrameName("gamebg.jpg");
+    auto bg = Sprite::createWithSpriteFrameName("gamebg.png");
     bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
     addChild(bg, 0);
     
@@ -66,6 +61,7 @@ bool HelloWorld::testDrop(LetterTile* letter) {
             letter->uiPosition(n);
             (*iter)->tile = letter;
             testWord();
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/click0.mp3");
             return true;
         }
         ++iter;
@@ -113,16 +109,72 @@ void HelloWorld::testWord() {
         }
         ++iter;
     }
-    if (didWin == w_win) cout << "You win the Empire" << endl;
+    if (didWin == w_win) userSolvedPhrase();//cout << "You win the Empire" << endl;
     else if (didWin == w_wrong) cout << "That's not the final word" << endl;
 
-    //TODO:turn off the tile touches.
+}
+
+void HelloWorld::startIntro() {
+    //Intro to get the user started
+    ////
+    auto intro = SkeletonAnimation::createWithFile("solveintro.json", "spine.atlas");
+    intro->setPosition(540, 450);
+    intro->setScale(0.5);
+    intro->setAnimation(0, "intro", false);
+    addChild(intro);
+
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 pos = landingTray->getPosition();
+    landingTray->setPosition(pos.x-visibleSize.width, pos.y);
+    auto slide = EaseElasticOut::create(MoveTo::create(2, pos));
+    landingTray->runAction(Sequence::create(DelayTime::create(1), slide, NULL));
+    
+    auto iter = letterTiles.begin();
+    while(iter != letterTiles.end()) {
+        pos = (*iter)->getPosition();
+        pos.y = -80;
+        (*iter)->setPosition(pos);
+        ++iter;
+    }
+    dropTile(true, true);
+}
+
+//Once the user has sovled the phrase we will start some fanfair as a reward
+////
+void HelloWorld::userSolvedPhrase() {
+    int i = 0;
+    LetterTile* aTile;
+    ScaleTo* s1;
+    ScaleTo* s2;
+    Sequence* sq;
+
+#if (DEBUG_WIN == 1)
+    auto iter = letterTiles.begin();
+    while(iter != letterTiles.end()) {
+        aTile = (*iter);
+#else
+    auto iter = landings.begin();
+    while(iter != landings.end()) {
+        aTile = (*iter)->tile;
+#endif
+        if(!(*iter)->isVisible()) {
+            ++iter;
+            continue;
+        }
+        aTile->getEventDispatcher()->removeEventListenersForTarget((*iter));
+        s1 = ScaleTo::create(0.1, 1.2);
+        s2 = ScaleTo::create(0.1, 1);
+        sq = Sequence::create(DelayTime::create(0.1*i), s1, s2, DelayTime::create(1-(0.1*i)), NULL);
+        aTile->runAction(RepeatForever::create(sq));
+        ++i;
+        ++iter;
+    }
 }
 
 //This method is going to keep the home tray clean and compressed
 //it will resize to the remaining letters in the tray and allow reordering
 ////
-void HelloWorld::dropTile(LetterTile* tile, bool animated) {
+void HelloWorld::dropTile(bool animated, bool delay) {
     vector<LetterTile*> tempSort;
     vector<Vec2> tempPos;
     auto iter = letterTiles.begin();
@@ -139,7 +191,7 @@ void HelloWorld::dropTile(LetterTile* tile, bool animated) {
     Vec2 pos;
     iter = tempSort.begin();
     while(iter != tempSort.end()) {
-        pos = Vec2(lastX + (r.size.width*0.5), 0);
+        pos = Vec2(lastX , 0);
         lastX += r.size.width + 5;
         tempPos.push_back(pos);
         ++iter;
@@ -150,12 +202,18 @@ void HelloWorld::dropTile(LetterTile* tile, bool animated) {
         v += Vec2((visibleSize.width*0.5)-(lastX*0.5), 75);
         if (animated) {
             tempSort[i]->stopAllActions();
-            MoveTo* moveHome = MoveTo::create(0.15, v);
-            tempSort[i]->runAction(moveHome);
+            if (delay) {
+                auto moveHome = MoveTo::create(0.75, v);
+                auto elast = EaseElasticOut::create(moveHome);
+                tempSort[i]->runAction(Sequence::create(DelayTime::create((i*0.1)+2), elast, NULL));
+            } else {
+                auto moveHome = MoveTo::create(0.15, v);
+                tempSort[i]->runAction(moveHome);
+                
+            }
         } else
             tempSort[i]->setPosition(v);
     }
-
 }
 
 void HelloWorld::onEnter() {
@@ -164,7 +222,7 @@ void HelloWorld::onEnter() {
     
     //Character for fun user feedback
     ////
-    auto teaser = SkeletonAnimation::createWithFile("teaser.json", "teaser.atlas");
+    auto teaser = SkeletonAnimation::createWithFile("teaser.json", "spine.atlas");
     teaser->setPosition(150, 350);
     teaser->setScale(0.7);
     teaser->setAnimation(0, "look", true);
@@ -199,7 +257,7 @@ void HelloWorld::onEnter() {
         ++i;
     }
     random_shuffle ( letterTiles.begin(), letterTiles.end() , [](int d){return arc4random()%d;});
-    dropTile(nullptr, false);
+    dropTile(false);
     
     Rect r;
     long lastX = 0;
@@ -210,8 +268,14 @@ void HelloWorld::onEnter() {
         lastX += r.size.width;
     }
     landingTray->setPosition(Vec2((visibleSize.width*0.5)-(lastX*0.5), 300));
+    
+    startIntro();
 }
 
 void HelloWorld::update(float delta) {
 
+}
+
+void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* unused_event) {
+    userSolvedPhrase();
 }

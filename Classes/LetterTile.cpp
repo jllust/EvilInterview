@@ -8,6 +8,7 @@
 
 #include "LetterTile.hpp"
 #include "HelloWorldScene.h"
+#include "audio/include/SimpleAudioEngine.h"
 
 using namespace std;
 
@@ -29,13 +30,15 @@ bool LetterTile::init() {
 }
 
 void LetterTile::uiPosition(Vec2 &pos) {
-    pos -= _parent->getPosition();
+    pos -= _contentSize.width*0.5;//_parent->getPosition();
     setPosition(pos);
 }
 
 const Vec2 LetterTile::uiPosition() {
     Vec2 v = _position;
-    v += _parent->getPosition();
+    v.x += _contentSize.width*0.5;
+    v.y += _contentSize.width*0.5;
+    //v -= _contentSize.width*0.5;//_parent->getPosition();
     return v;
 }
 
@@ -44,42 +47,45 @@ void LetterTile::onEnter() {
     
     // start to add assets once this layer is added to the draw heirachy
     auto tile = Sprite::createWithSpriteFrameName("tile.png");
-    //tile->setAnchorPoint(Vec2());
+    tile->setAnchorPoint(Vec2(0,0));
     addChild(tile);
     
     Rect r = tile->getBoundingBox();
     setContentSize(r.size);
     auto label = Label::createWithTTF(string(&letter), "fonts/Marker Felt.ttf", 42);
-    //label->setPosition(r.size.width*0.5, r.size.height*0.5);
+    label->setPosition(r.size.width*0.5, r.size.height*0.5);
     addChild(label);
 }
 
 bool LetterTile::onTouchBegan(Touch *touch, Event *event) {
-    Vec2 t = touch->getLocation() - _parent->getPosition();
+    Vec2 t = touch->getLocation();// - _parent->getPosition();
     Rect r = getBoundingBox();
-    r.origin -= _contentSize.width*0.5;
+    //r.origin -= _contentSize.width*0.5;
     if (r.containsPoint(t)) {
         if (landing) {
             landing->tile = nullptr;
             landing = nullptr;
         }
         setZOrder(10);
+        t -= _contentSize.width*0.5;
         setPosition(t);
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/click1.mp3");
         return true;
     }
     return false;
 }
 
 void LetterTile::onTouchMoved(Touch *touch, Event *event) {
-    Vec2 t = touch->getLocation() - _parent->getPosition();
+    Vec2 t = touch->getLocation();// - _parent->getPosition();
+    t -= _contentSize.width*0.5;
     setPosition(t);
 }
 
 void LetterTile::onTouchEnded(Touch *touch, Event *event) {
     setZOrder(0);
     if (!delegate) return;
-    if ( delegate->testDrop(this) ) {
-      
+    if ( !delegate->testDrop(this) ) {
+      CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/whoosh.mp3");
     }
     delegate->dropTile(this);
 }

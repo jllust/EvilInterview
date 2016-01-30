@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>gamebg.jpg</key>
+            <key>gamebg.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -17,7 +17,7 @@
                 <key>textureRect</key>
                 <string>{{1,1},{1136,640}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>tile.png</key>
             <dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{82,77}</string>
                 <key>textureRect</key>
-                <string>{{748,1},{82,77}}</string>
+                <string>{{1139,106},{82,77}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{86,103}</string>
                 <key>textureRect</key>
-                <string>{{643,1},{86,103}}</string>
+                <string>{{1139,1},{86,103}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -57,9 +57,9 @@
             <key>realTextureFileName</key>
             <string>assets.png</string>
             <key>size</key>
-            <string>{1024,2048}</string>
+            <string>{1226,642}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2ef52f895a104f4975deef14bec1bed9:196eaad0e0db6f5f796452ed3435d3b7:83e187547237f094a69bacbb86d8af03$</string>
+            <string>$TexturePacker:SmartUpdate:1b6575b7251afeb46938b2330883f8cf:8320d7fd4c20b53621e2b8ab598b1c29:83e187547237f094a69bacbb86d8af03$</string>
             <key>textureFileName</key>
             <string>assets.png</string>
         </dict>

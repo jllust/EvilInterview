@@ -1,0 +1,75 @@
+spine.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: true
+  xy: 917, 276
+  size: 38, 82
+  orig: 38, 86
+  offset: 0, 3
+  index: -1
+eyes
+  rotate: false
+  xy: 917, 1
+  size: 104, 20
+  orig: 110, 30
+  offset: 4, 7
+  index: -1
+fox
+  rotate: false
+  xy: 219, 558
+  size: 210, 352
+  orig: 260, 360
+  offset: 0, 8
+  index: -1
+l_ear
+  rotate: false
+  xy: 917, 158
+  size: 82, 116
+  orig: 82, 116
+  offset: 0, 0
+  index: -1
+phrase
+  rotate: false
+  xy: 1, 1
+  size: 696, 216
+  orig: 696, 216
+  offset: 0, 0
+  index: -1
+r_ear
+  rotate: true
+  xy: 917, 98
+  size: 58, 90
+  orig: 58, 90
+  offset: 0, 0
+  index: -1
+scarf
+  rotate: false
+  xy: 917, 23
+  size: 100, 73
+  orig: 100, 75
+  offset: 0, 2
+  index: -1
+solve
+  rotate: true
+  xy: 699, 1
+  size: 555, 216
+  orig: 555, 216
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 431, 219
+  size: 147, 113
+  orig: 147, 113
+  offset: 0, 0
+  index: -1
+the
+  rotate: true
+  xy: 1, 558
+  size: 380, 216
+  orig: 380, 216
+  offset: 0, 0
+  index: -1

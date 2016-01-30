@@ -31,10 +31,13 @@ public:
     
     bool testDrop(LetterTile* letter);
     void testWord();
-    void dropTile(LetterTile* tile, bool animated = true);
+    void dropTile(bool animated = true, bool delay = false);
+    void startIntro();
+    void userSolvedPhrase();
     
     virtual void onEnter();
     virtual void update(float delta);
+    virtual void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* unused_event);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
