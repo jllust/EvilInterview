@@ -14,7 +14,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/LetterTile.cpp \
-                   ../../Classes/TileLanding.cpp
+                   ../../Classes/TileLanding.cpp \
+                   ../../Classes/CountDown.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

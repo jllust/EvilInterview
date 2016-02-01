@@ -17,6 +17,21 @@ Supported Platforms
    * MacOSX: stable, tested on OSX 10.11.2
    * Android: tested on 4.x, ndk r8.
 
+Build and Run for Xcode
+-------------------------------
+   * Open XCode project file proj.ios_mac/Evil.xcodeproj
+   * Choose run target Evil-mobile or Evil-desktop
+   * Build and Run (Cocos2d-x open source libraries will take a long minute for the first build)
+
+UX Features Focused On In This Example
+-------------------------------
+   * Drag and Drop snapping on play tray
+   * Home tray expansion and shrinking
+   * Home tray reorder dragging
+   * Help animation time-outs when user does not progress
+   * Transition animations and staggering of game elements
+   * Win/loose animations and escalation
+
 Build Command For Android with Cocos2d-x comand tools
 -------------------------------
 

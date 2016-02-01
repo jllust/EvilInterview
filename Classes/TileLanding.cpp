@@ -9,6 +9,8 @@
 #include "TileLanding.hpp"
 #include "LetterTile.hpp"
 
+using namespace std;
+
 TileLanding* TileLanding::create() {
     TileLanding *pRet = new(std::nothrow) TileLanding(); \
     if (pRet && pRet->initWithSpriteFrameName("tray.png")) {
@@ -47,3 +49,13 @@ const Vec2 TileLanding::glPosition() {
     v -= getParent()->getPosition();
     return v;
 }
+
+void TileLanding::reveal() {
+    Rect r = getBoundingBox();
+    auto label = Label::createWithTTF(string(&correctLetter), "fonts/Marker Felt.ttf", 42);
+    label->setPosition(r.size.width*0.5, r.size.height*0.5);
+    label->setOpacity(0);
+    addChild(label);
+    label->runAction( Sequence::create(DelayTime::create(1), FadeIn::create(2), NULL) );
+}
+

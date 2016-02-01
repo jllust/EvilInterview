@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "AppDelegate.h"
 #include <algorithm>
 #include <random>
 #include <chrono>       // std::chrono::system_clock
@@ -203,6 +204,8 @@ void HelloWorld::userSolvedPhrase() {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/bingo.caf");
     countDown->stop();
     countDown->runAction(ScaleTo::create(0.25, 0));
+        
+    scheduleOnce(CC_SCHEDULE_SELECTOR(HelloWorld::doARestart), 7); //Restarting in 7...6...
 }
 
 //This method is going to keep the home tray clean and compressed
@@ -330,4 +333,40 @@ void HelloWorld::helpTheUser2(float d) {
 void HelloWorld::outOfTime() {
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/wr_player_lose.caf");
+    
+    LetterTile* aTile;
+    MoveTo* m1;
+    RotateBy* r1;
+    Spawn* spawn;
+    Vec2 pos;
+    int i = 0;
+    auto t_iter = letterTiles.begin();
+    while(t_iter != letterTiles.end()) {
+        aTile = (*t_iter);
+        aTile->getEventDispatcher()->removeEventListenersForTarget((*t_iter));
+        pos = aTile->getPosition();
+        pos.y = -100;
+        m1 = MoveTo::create(0.5, pos);
+        float ang = arc4random()%180;
+        r1 = RotateBy::create(0.5, ang-90 );
+        spawn = Spawn::create(EaseExponentialIn::create(m1), EaseExponentialIn::create(r1), NULL);
+        aTile->runAction(Sequence::create(DelayTime::create(i*0.15), spawn, NULL));
+        ++i;
+        ++t_iter;
+    }
+    
+    TileLanding* aLanding;
+    auto l_iter = landings.begin();
+    while(l_iter != landings.end()) {
+        aLanding = (*l_iter);
+        aLanding->reveal();
+        ++l_iter;
+    }
+    
+    scheduleOnce(CC_SCHEDULE_SELECTOR(HelloWorld::doARestart), 7); //Restarting in 7...6...
+}
+    
+void HelloWorld::doARestart(float d) {
+    AppDelegate* app = (AppDelegate*)Application::getInstance();
+    app->reloadScene(nullptr);
 }

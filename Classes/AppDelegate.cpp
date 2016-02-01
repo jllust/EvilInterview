@@ -3,7 +3,7 @@
 
 USING_NS_CC;
 
-#define DEBUG_RESTART 1
+#define DEBUG_RESTART 0
 
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(960, 640);
 

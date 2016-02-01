@@ -55,3 +55,4 @@ _assets
 local.properties
 proj.android/libs/armeabi
 proj.android/obj/local/armeabi
+proj.android/assets

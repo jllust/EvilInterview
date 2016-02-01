@@ -27,6 +27,7 @@ public:
     
     void placeTile(LetterTile* newtile);
     const Vec2 glPosition();
+    void reveal();
 };
 
 #endif /* TileLanding_hpp */

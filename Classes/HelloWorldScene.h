@@ -48,6 +48,7 @@ public:
     void helpTheUser1(float d);
     void helpTheUser2(float d);
     void outOfTime();
+    void doARestart(float d);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
