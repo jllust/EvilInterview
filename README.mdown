@@ -1,0 +1,38 @@
+Project Evil Interview
+=========
+
+Required Libraries
+------------------
+   * All 3rd party libraries are included in this repo as precompiled and open source.
+
+Libraries Used
+------------------
+   * [cocos2d-x][1] a multi-platform 2D OpenGL game framework in C++
+   * [spine][2] a runtime C framework developed by esoteric software to run bone rigged animations
+
+Supported Platforms
+-------------------
+
+   * iOS:  stable, tested on iOS 9.x
+   * MacOSX: stable, tested on OSX 10.11.2
+   * Android: tested on 4.x, ndk r8.
+
+Build Command For Android with Cocos2d-x comand tools
+-------------------------------
+
+   * cocos run -p android -j 4
+
+Documentation And Resources Used
+--------------
+
+   * C++ reference: [www.cplusplus.com][3]
+   * Cocos2d-x API Reference: ["cocos2d-x ref"][4]
+   * Stackoverflow: ["vector shuffling"][5]
+   * Stackoverflow: ["string to upper"][6]
+
+[1]: https://github.com/cocos2d/cocos2d-x "cocos2d-x"
+[2]: https://github.com/EsotericSoftware/spine-runtimes "spine runtimes"
+[3]: http://www.cplusplus.com "www.cplusplus.com"
+[4]: http://www.cocos2d-x.org/reference/native-cpp/V3.10/index.html "cocos2d-x ref"
+[5]: http://stackoverflow.com/questions/14221763/stdrandom-shuffle-produces-same-result-each-time "vector shuffling"
+[6]: http://stackoverflow.com/questions/735204/convert-a-string-in-c-to-upper-case "string to upper"

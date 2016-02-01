@@ -41,6 +41,9 @@ bool HelloWorld::init() {
     bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
     addChild(bg, 0);
     
+    userNeedsHelp1 = true;
+    userNeedsHelp2 = true;
+    
     return true;
 }
 
@@ -62,6 +65,7 @@ bool HelloWorld::testDrop(LetterTile* letter) {
             (*iter)->tile = letter;
             testWord();
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/click0.mp3");
+            userNeedsHelp1 = false;
             return true;
         }
         ++iter;
@@ -109,8 +113,11 @@ void HelloWorld::testWord() {
         }
         ++iter;
     }
-    if (didWin == w_win) userSolvedPhrase();//cout << "You win the Empire" << endl;
-    else if (didWin == w_wrong) cout << "That's not the final word" << endl;
+    if (didWin == w_win) userSolvedPhrase(); //cout << "You win the Empire" << endl;
+    else if (didWin == w_wrong) {
+        helpTheUser2(0.f); //cout << "That's not the final word" << endl;
+        userNeedsHelp2 = false;
+    }
 
 }
 
@@ -119,22 +126,17 @@ void HelloWorld::startIntro() {
     //Intro to get the user started
     ////
     auto intro = SkeletonAnimation::createWithFile("solveintro.json", "spine.atlas");
-    intro->setPosition(540, 450);
+    intro->setPosition(540, 410);
     intro->setScale(0.5);
     intro->setAnimation(0, "intro", false);
     addChild(intro);
+
+    helpAni = SkeletonAnimation::createWithFile("help0.json", "spine.atlas");
+    helpAni->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
+    helpAni->setAnimation(0, "help0", false);
+    addChild(helpAni, 20);
     
-    auto twirl = SkeletonAnimation::createWithFile("twirl.json", "spine.atlas");
-    twirl->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
-    twirl->setScale(0.5);
-    twirl->setAnimation(0, "intro", false);
-    addChild(twirl);
-    
-    Vec2 pos = landingTray->getPosition();
-    landingTray->setPosition(pos.x-visibleSize.width, pos.y);
-    auto slide = EaseElasticOut::create(MoveTo::create(2, pos));
-    landingTray->runAction(Sequence::create(DelayTime::create(1), slide, NULL));
-    
+    Vec2 pos;
     auto iter = letterTiles.begin();
     while(iter != letterTiles.end()) {
         pos = (*iter)->getPosition();
@@ -143,6 +145,22 @@ void HelloWorld::startIntro() {
         ++iter;
     }
     dropTile(true, true);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/mj_new_set_tiles.caf");
+    scheduleOnce(CC_SCHEDULE_SELECTOR(HelloWorld::postIntroStart), 3);
+}
+
+void HelloWorld::postIntroStart(float d) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("sounds/rackrampup.mp3", false);
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    countDown = CountDown::create();
+    countDown->delegate = this;
+    countDown->setCascadeOpacityEnabled(true);
+    countDown->setPosition(visibleSize.width-150, visibleSize.height-100);
+    addChild(countDown);
+    countDown->setOpacity(0);
+    countDown->runAction(FadeIn::create(1));
+    
+    scheduleOnce(CC_SCHEDULE_SELECTOR(HelloWorld::helpTheUser1), 8);
 }
 
 //Once the user has sovled the phrase we will start some fanfair as a reward
@@ -175,6 +193,16 @@ void HelloWorld::userSolvedPhrase() {
         ++i;
         ++iter;
     }
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto twirl = SkeletonAnimation::createWithFile("twirl.json", "spine.atlas");
+    twirl->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
+    twirl->setScale(0.5);
+    twirl->setAnimation(0, "intro", false);
+    addChild(twirl);
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/bingo.caf");
+    countDown->stop();
+    countDown->runAction(ScaleTo::create(0.25, 0));
 }
 
 //This method is going to keep the home tray clean and compressed
@@ -209,9 +237,11 @@ void HelloWorld::dropTile(bool animated, bool delay) {
         if (animated) {
             tempSort[i]->stopAllActions();
             if (delay) {
+                //If delayed this will be an animation from the bottom of the screen to start the scene
+                ////
                 auto moveHome = MoveTo::create(0.75, v);
                 auto elast = EaseElasticOut::create(moveHome);
-                tempSort[i]->runAction(Sequence::create(DelayTime::create((i*0.1)+2), elast, NULL));
+                tempSort[i]->runAction(Sequence::create(DelayTime::create((i*0.1)), elast, NULL));
             } else {
                 auto moveHome = MoveTo::create(0.15, v);
                 tempSort[i]->runAction(moveHome);
@@ -276,6 +306,7 @@ void HelloWorld::onEnter() {
     landingTray->setPosition(Vec2((visibleSize.width*0.5)-(lastX*0.5), 300));
     
     startIntro();
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("sounds/rackrampup.mp3");
 }
 
 void HelloWorld::update(float delta) {
@@ -284,4 +315,19 @@ void HelloWorld::update(float delta) {
 
 void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* unused_event) {
     userSolvedPhrase();
+}
+
+
+void HelloWorld::helpTheUser1(float d) {
+    if (userNeedsHelp1) helpAni->setAnimation(0, "help1", false);
+    
+}
+
+void HelloWorld::helpTheUser2(float d) {
+    if (userNeedsHelp2) helpAni->setAnimation(0, "help2", false);
+}
+
+void HelloWorld::outOfTime() {
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/wr_player_lose.caf");
 }

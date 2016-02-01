@@ -56,6 +56,8 @@
 		9631650A1C582D1600D39B58 /* LetterTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 963165071C582D1600D39B58 /* LetterTile.cpp */; };
 		9631650E1C584C0100D39B58 /* TileLanding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9631650C1C584C0100D39B58 /* TileLanding.cpp */; };
 		9631650F1C584C0100D39B58 /* TileLanding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9631650C1C584C0100D39B58 /* TileLanding.cpp */; };
+		96E377DD1C5F5E60007101AD /* CountDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E377DB1C5F5E60007101AD /* CountDown.cpp */; };
+		96E377DE1C5F5E60007101AD /* CountDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E377DB1C5F5E60007101AD /* CountDown.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -150,6 +152,8 @@
 		963165081C582D1600D39B58 /* LetterTile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LetterTile.hpp; sourceTree = "<group>"; };
 		9631650C1C584C0100D39B58 /* TileLanding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileLanding.cpp; sourceTree = "<group>"; };
 		9631650D1C584C0100D39B58 /* TileLanding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TileLanding.hpp; sourceTree = "<group>"; };
+		96E377DB1C5F5E60007101AD /* CountDown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CountDown.cpp; sourceTree = "<group>"; };
+		96E377DC1C5F5E60007101AD /* CountDown.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CountDown.hpp; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -288,6 +292,8 @@
 				963165071C582D1600D39B58 /* LetterTile.cpp */,
 				9631650D1C584C0100D39B58 /* TileLanding.hpp */,
 				9631650C1C584C0100D39B58 /* TileLanding.cpp */,
+				96E377DC1C5F5E60007101AD /* CountDown.hpp */,
+				96E377DB1C5F5E60007101AD /* CountDown.cpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -480,6 +486,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				9631650E1C584C0100D39B58 /* TileLanding.cpp in Sources */,
+				96E377DD1C5F5E60007101AD /* CountDown.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				96E377DE1C5F5E60007101AD /* CountDown.cpp in Sources */,
 				9631650A1C582D1600D39B58 /* LetterTile.cpp in Sources */,
 				9631650F1C584C0100D39B58 /* TileLanding.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,

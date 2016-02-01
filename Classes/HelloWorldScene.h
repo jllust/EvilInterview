@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "LetterTile.hpp"
 #include "TileLanding.hpp"
+#include "CountDown.hpp"
 #include <spine/spine-cocos2dx.h>
 
 USING_NS_CC;
@@ -23,6 +24,10 @@ public:
     
     Node* homeTray;
     Node* landingTray;
+    CountDown* countDown;
+    SkeletonAnimation* helpAni;
+    bool userNeedsHelp1;
+    bool userNeedsHelp2;
 
     virtual bool init();
     
@@ -33,11 +38,16 @@ public:
     void testWord();
     void dropTile(bool animated = true, bool delay = false);
     void startIntro();
+    void postIntroStart(float d);
     void userSolvedPhrase();
     
     virtual void onEnter();
     virtual void update(float delta);
     virtual void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* unused_event);
+    
+    void helpTheUser1(float d);
+    void helpTheUser2(float d);
+    void outOfTime();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
