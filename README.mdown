@@ -45,6 +45,11 @@ Documentation And Resources Used
    * Stackoverflow: ["vector shuffling"][5]
    * Stackoverflow: ["string to upper"][6]
 
+Art and Asset Licenses
+--------------
+   All art in this project is from various sources and not been licensed for commercial use. The Copyrights to art and assets are retained by their respective companies and should not be reproduced to used in commercial products.
+
+
 [1]: https://github.com/cocos2d/cocos2d-x "cocos2d-x"
 [2]: https://github.com/EsotericSoftware/spine-runtimes "spine runtimes"
 [3]: http://www.cplusplus.com "www.cplusplus.com"
