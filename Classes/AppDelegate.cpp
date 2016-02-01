@@ -43,6 +43,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // turn on display FPS
     //director->setDisplayStats(true);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    float height;
+    if (getTargetPlatform() == Platform::OS_IPAD) height = 700;
+    else height = 640;
+    if (visibleSize.height > height) {
+        float s = height / visibleSize.height;
+        glview->setDesignResolutionSize(visibleSize.width*s, height, ResolutionPolicy::NO_BORDER);
+    }
+#endif
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -56,13 +66,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 }
 
 void AppDelegate::reloadScene(Ref* pSender) {
-    Size visibleSize = Director::getInstance()->getVisibleSize();
     auto director = Director::getInstance();
     
     // create a scene. it's an autorelease object
     auto scene = HelloWorld::createScene();
     
     director->runWithScene(scene);
+    
     
 #if DEBUG_RESTART
     //add a "reload" button to see the game start animation over again
