@@ -36,7 +36,6 @@ VersionX-revision.h
 proj.android/assets/
 *build/
 !cocos2d/build/
-*.[oa]
 # Other source repository archive directories (protects when importing)
 .hg
 .svn
